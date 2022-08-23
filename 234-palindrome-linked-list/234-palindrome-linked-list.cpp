@@ -10,22 +10,38 @@
  */
 class Solution {
 public:
-    bool isPalindrome(ListNode* head) {
-        vector<int>v;
-        while(head!=NULL)
+    bool isPalindrome(ListNode* head)
+    {
+        // finding the mid
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while(fast != NULL && fast->next != NULL)
         {
-            v.push_back(head->val);
-            head=head->next;
+            slow = slow->next;
+            fast = fast->next->next;
         }
-        int i=0,j=v.size()-1;
-        while(i<j)
+        
+        // reversing the list from mid
+        ListNode* ptr = NULL;
+        ListNode* next = NULL;
+        while(slow != NULL)
         {
-            if(v[i]==v[j])
+            next = slow->next;
+            slow->next = ptr;
+            ptr = slow;
+            slow = next;
+        }
+        
+        // finally checking the elements with the reversed mid elements.
+        while(ptr != NULL)
+        {
+            if(head->val != ptr->val)
             {
-                i++;
-                j--;
+                return false;
             }
-            else    return 0;
-        }return 1;
+            head = head->next;
+            ptr = ptr->next;
+        }
+        return true;
     }
 };
