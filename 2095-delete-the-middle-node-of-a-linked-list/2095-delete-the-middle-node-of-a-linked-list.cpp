@@ -11,28 +11,22 @@
 class Solution {
 public:
     ListNode* deleteMiddle(ListNode* head) {
-        ListNode harsh(0) ,*p=&harsh;
-        vector<int>aksh;
-        while (head != NULL)
-            {
-            aksh.push_back(head->val);
-                head=head->next;
-            }
-        int n=aksh.size();
-        
-        for(int i=0;i<n;i++)
-            {
-            if(i==n/2)
-                continue;
-            else
-            {
-                
+        if(head==NULL || head->next==NULL)
+        {
+            return NULL;
+        }
+        ListNode* slow = head;
+        ListNode* fast = head;
+        ListNode* prev=NULL;
+        while(fast!=NULL && fast->next!=NULL)
+        {
+            prev = slow;
+            slow=slow->next;
+            fast=fast->next->next;
             
-            p->next = new ListNode(aksh[i]);
-            p=p->next;
-            }
-            }
-        p->next=NULL;
-        return harsh.next;
+        }
+        prev->next = prev->next->next;
+        return head;
+        
     }
 };
