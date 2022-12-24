@@ -1,18 +1,16 @@
 class Solution {
 public:
     int numTilings(int n) {
-        if (n < 3) return n;
-        
-        int mod = pow(10, 9) + 7;
-        vector<long> D(n+1, 0), T(n+1, 0);
-        D[0] = 0, D[1] = 1, D[2] = 2;
-        T[0] = 0, T[1] = 1, T[2] = 2;
-        
-        for (int i = 3; i <= n; i++) {
-            D[i] = (D[i-1] + D[i-2] + 2*T[i-2]) % mod;
-            T[i] = (T[i-1] + D[i-1]) % mod;
-        }
-        
-        return D[n];
+        if(n<3)return n;
+        vector<long long>v(n);
+        v[0]=1;
+        v[1]=2;
+        v[2]=5;
+         int mod = pow(10, 9) + 7;
+        if(n<=3)return v[n-1];
+        for(int i=3;i<n;i++)
+        {
+            v[i]=(v[i-1]*2+v[i-3])%mod;
+        }return v[n-1];
     }
 };
