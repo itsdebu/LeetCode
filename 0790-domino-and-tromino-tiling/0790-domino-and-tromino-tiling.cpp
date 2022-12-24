@@ -2,7 +2,7 @@ class Solution {
 public:
     int numTilings(int n) {
         if(n<3)return n;
-        vector<long long>v(n);
+        long long v[n];
         v[0]=1;
         v[1]=2;
         v[2]=5;
