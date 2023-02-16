@@ -1,15 +1,16 @@
 class Solution {
 public:
+    int bs(vector<int>&arr,int i,int j)
+    {
+
+        if(i<j){
+            int mid=i+(j-i)/2;
+            if(arr[mid]<arr[mid+1])
+                return bs(arr,mid+1,j);
+            else return bs(arr,i,mid);
+        }return i;
+    }
     int peakIndexInMountainArray(vector<int>& arr) {
-        int index=0;
-        int mx=INT_MIN;
-        for(int i=0;i<arr.size();i++)
-        {
-            if(arr[i]>mx)
-            {
-                mx=arr[i];
-                index=i;
-            }
-        }return index;
+        return bs(arr,0,arr.size()-1);
     }
 };
