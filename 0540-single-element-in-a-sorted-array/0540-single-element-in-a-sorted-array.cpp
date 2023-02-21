@@ -1,9 +1,11 @@
 class Solution {
 public:
     int singleNonDuplicate(vector<int>& nums) {
-       unordered_map<int,int>mp;
-        for(auto i:nums)mp[i]++;
-        for(auto i:mp)if(i.second==1)return i.first;
-        return -1;
+       if(nums.size()==1)return nums[0];
+       for(int i=0;i<nums.size()-1;)
+       {
+           if(nums[i]==nums[i+1])i+=2;  
+           else return nums[i];
+       }return nums[nums.size()-1];
     }
 };
