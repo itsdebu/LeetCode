@@ -1,32 +1,25 @@
 class Solution {
 public:
     int findMaximizedCapital(int k, int w, vector<int>& profits, vector<int>& capital) {
-        if(k==100000 and w==100000 and capital[capital.size()-1]==7680)return 1000100000;
-        if(k==100000 and w==100000 and capital[capital.size()-1]==715366249)return 595057;
-        if(k==100000 and w==1000000000 and capital[capital.size()-1]==7680)return 2000000000;
         vector<pair<int,int>>v;
         for(int i=0;i<profits.size();i++)
         {
             v.push_back(make_pair(capital[i],profits[i]));
         }
-        // sort(v.begin(),v.end());
+        sort(v.begin(),v.end());
+        int n=profits.size();
+        priority_queue<int>q;
+        int i=0;
         while(k--)
         {
-            int c=0;
-            int in=0;
-            for(int i=0;i<v.size();i++)
+            while(i<n and v[i].first<=w)
             {
-                if(v[i].first<=w)
-                {
-                    if(c<v[i].second)
-                    {
-                        c=v[i].second;
-                        in=i;
-                    }
-                }
+                q.push(v[i].second);
+                i++;
             }
-            w+=c;
-            v[in].second=-1;
+            if(q.empty())break;
+            w+=q.top();
+            q.pop();
         }return w;
     }
 };
