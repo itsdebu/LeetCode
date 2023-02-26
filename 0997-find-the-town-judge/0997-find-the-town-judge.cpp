@@ -6,9 +6,9 @@ public:
             indegree[vec[0]]--;
             indegree[vec[1]]++;
         }
-        for(int i = 1; i<=n; i++)
-            if(indegree[i] == n-1)
-                return i;
-        return -1;
+        for(int i=1;i<=n;i++)
+        {
+            if(indegree[i]==n-1)return i;
+        }return -1;
     }
 };
