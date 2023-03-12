@@ -1,25 +1,36 @@
 class MyStack {
 public:
-    stack<int>st;
+    queue<int>q;
+    int peek=-1;
     MyStack() {
     }
     
     void push(int x) {
-        st.push(x);
+        peek=x;
+        q.push(peek);
     }
     
     int pop() {
-        int t=st.top();
-        st.pop();
-        return t;
+         int n = q.size();
+       n-=1; 
+       while(n--){
+          peek = q.front();     // maintining the top element 
+           q.push(peek);
+           q.pop();
+       } 
+        
+       int ret = q.front();     // storing the element to return 
+        q.pop();                // removing the element permanently
+        
+        return ret;
     }
     
     int top() {
-        return st.top();
+        return peek;
     }
     
     bool empty() {
-        return st.size()==0;
+        return q.size()==0;
     }
 };
 
