@@ -4,7 +4,7 @@ public:
         queue<pair<string,int>>q;
         unordered_set<string>st(wordList.begin(),wordList.end());
         q.push({beginWord,1});
-        // st.erase(startWord);
+        st.erase(beginWord);
         while(!q.empty())
         {
             string word=q.front().first;
