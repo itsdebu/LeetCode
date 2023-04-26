@@ -1,26 +1,34 @@
-class Solution { // similar to network delay time.  dijkstra algo
+class Solution {
 public:
-    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int K) {
-        unordered_map<int, vector<pair<int, int>>> graph;
-        for(auto e: flights) graph[e[0]].push_back({e[1], e[2]});
-        vector<int> prices(n, -1);
-        queue<pair<int, int>> q; q.push({src, 0});
-        ++K;
-        while(!q.empty()) {
-            if(!K) break;
-            int len = q.size();
-            for(int i = 0; i < len; i++) {
-                auto cur = q.front(); q.pop();
-                for(auto e: graph[cur.first]) {
-                    int price = cur.second + e.second; 
-                    if(prices[e.first] == -1 || price < prices[e.first]) {
-                        prices[e.first] = price;
-                        q.push({e.first, price});
-                    }
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+        vector<pair<int,int>>adj[n];
+        for(auto flight:flights)
+        {
+            adj[flight[0]].push_back({flight[1],flight[2]});
+        }
+        queue<pair<int,pair<int,int>>>q;
+        q.push({0,{src,0}});
+        vector<int>dist(n,INT_MAX);
+        dist[src]=0;
+        while(!q.empty())
+        {
+            int node=q.front().second.first;
+            int dis=q.front().second.second;
+            int stop=q.front().first;
+            q.pop();
+            if(stop>k)continue;
+            for(auto it:adj[node])
+            {
+                int adjnode=it.first;
+                int adjwt=it.second;
+                if(dis+adjwt<dist[adjnode])
+                {
+                    dist[adjnode]=dis+adjwt;
+                    q.push({stop+1,{adjnode,dist[adjnode]}});
                 }
             }
-            K--;
         }
-        return prices[dst];
+        if(dist[dst]==INT_MAX)return -1;
+        return dist[dst];
     }
 };
