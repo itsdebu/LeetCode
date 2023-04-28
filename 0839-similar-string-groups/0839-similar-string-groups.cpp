@@ -24,8 +24,8 @@ public:
     int numSimilarGroups(vector<string>& strs) {
         int n=strs.size();
         vector<vector<int>>adj(strs.size());
-        for(int i=1;i<n;i++){
-            for(int j=0;j<i;j++){
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
                 if(check(strs[i],strs[j])){
                     adj[i].push_back(j);
                     adj[j].push_back(i);
