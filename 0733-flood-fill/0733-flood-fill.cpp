@@ -1,17 +1,17 @@
 class Solution {
 public:
-    void dfs(int i,int j,vector<vector<int>>&image,int initial_color,int color,int delrow[],int delcol[])
+    void dfs(int r,int c,vector<vector<int>>&image,int initial_color,int color,int deltarow[],int deltacol[])
     {
         int n=image.size();
         int m=image[0].size();
-        image[i][j]=color;
-        for(int k=0;k<4;k++)
+        image[r][c]=color;
+        for(int i=0;i<4;i++)
         {
-            int row=i+delrow[k];
-            int col=j+delcol[k];
-            if(row>=0 and row<n and col>=0 and j<m and image[row][col]==initial_color and image[row][col]!=color)
+            int new_row=r+deltarow[i];
+            int new_col=c+deltacol[i];
+            if(new_row>=0 and new_row<n and new_col>=0 and new_col<m and image[new_row][new_col]!=color and image[new_row][new_col]==initial_color)
             {
-                dfs(row,col,image,initial_color,color,delrow,delcol);
+                dfs(new_row,new_col,image,initial_color,color,deltarow,deltacol);
             }
         }
     }
@@ -19,9 +19,9 @@ public:
         int n=image.size();
         int m=image[0].size();
         int initial_color=image[sr][sc];
-        int delrow[4]={-1,0,1,0};
-        int delcol[4]={0,1,0,-1};
-        dfs(sr,sc,image,initial_color,color,delrow,delcol);
+        int deltarow[4]={-1,0,1,0};
+        int deltacol[4]={0,1,0,-1};
+        dfs(sr,sc,image,initial_color,color,deltarow,deltacol);
         return image;
     }
 };
