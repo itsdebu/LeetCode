@@ -3,39 +3,38 @@ public:
     vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
         int n=mat.size();
         int m=mat[0].size();
-        vector<vector<int>>vis(n,vector<int>(m,0));
-        vector<vector<int>>distance(n,vector<int>(m,0));
         queue<pair<pair<int,int>,int>>q;
+        vector<vector<int>>vis(n,vector<int>(m,0));
         for(int i=0;i<n;i++)
         {
             for(int j=0;j<m;j++)
             {
                 if(mat[i][j]==0)
                 {
-                    q.push({{i,j},0});
                     vis[i][j]=1;
+                    q.push({{i,j},0});
                 }
             }
         }
-        int deltarow[4]={-1,0,1,0};
-        int deltacol[4]={0,1,0,-1};
+        int delrow[4]={-1,0,1,0};
+        int delcol[4]={0,1,0,-1};
         while(!q.empty())
         {
             int row=q.front().first.first;
             int col=q.front().first.second;
-            int step=q.front().second;
+            int steps=q.front().second;
             q.pop();
-            distance[row][col]=step;
+            mat[row][col]=steps;
             for(int i=0;i<4;i++)
             {
-                int nrow=row+deltarow[i];
-                int ncol=col+deltacol[i];
-                if(nrow>=0 and nrow<n and ncol>=0 and ncol<m and vis[nrow][ncol]==0)
+                int new_row=row+delrow[i];
+                int new_col=col+delcol[i];
+                if(new_row>=0 and new_row<n and new_col>=0 and new_col<m and vis[new_row][new_col]==0)
                 {
-                    vis[nrow][ncol]=1;
-                    q.push({{nrow,ncol},step+1});
+                    q.push({{new_row,new_col},steps+1});
+                    vis[new_row][new_col]=1;
                 }
             }
-        }return distance;
+        }return mat;
     }
 };
