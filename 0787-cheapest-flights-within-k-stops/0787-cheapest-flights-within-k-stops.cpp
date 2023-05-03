@@ -1,22 +1,22 @@
 class Solution {
 public:
-    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
-        vector<pair<int,int>>adj[n];
-        for(auto flight:flights)
-        {
-            adj[flight[0]].push_back({flight[1],flight[2]});
-        }
-        queue<pair<int,pair<int,int>>>q;
-        q.push({0,{src,0}});
+    int findCheapestPrice(int n, vector<vector<int>>& grid, int src, int dst, int k) {
+        queue<pair<pair<int,int>,int>>q;
         vector<int>dist(n,INT_MAX);
+        vector<pair<int,int>>adj[n];
+        for(auto it:grid)
+        {
+            adj[it[0]].push_back({it[1],it[2]});
+        }
         dist[src]=0;
+        q.push({{src,0},0});
         while(!q.empty())
         {
-            int node=q.front().second.first;
-            int dis=q.front().second.second;
-            int stop=q.front().first;
+            int node=q.front().first.first;
+            int dis=q.front().first.second;
+            int steps=q.front().second;
             q.pop();
-            if(stop>k)continue;
+            if(steps>k)continue;
             for(auto it:adj[node])
             {
                 int adjnode=it.first;
@@ -24,7 +24,7 @@ public:
                 if(dis+adjwt<dist[adjnode])
                 {
                     dist[adjnode]=dis+adjwt;
-                    q.push({stop+1,{adjnode,dist[adjnode]}});
+                    q.push({{adjnode,dist[adjnode]},steps+1});
                 }
             }
         }
