@@ -9,16 +9,14 @@
  * };
  */
 class Solution {
-public:
+public:                     
     ListNode* swapPairs(ListNode* head) {
+        if(!head or !head->next)return head;
         ListNode* temp=head;
         while(temp and temp->next)
         {
-            int val=temp->val;
-            temp->val=temp->next->val;
-            temp->next->val=val;
+            swap(temp->val,temp->next->val);
             temp=temp->next->next;
-        }temp=head;
-        return head;
+        }return head;
     }
 };
