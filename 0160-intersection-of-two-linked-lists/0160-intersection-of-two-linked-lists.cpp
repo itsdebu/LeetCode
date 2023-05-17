@@ -9,47 +9,14 @@
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-       ListNode *f=headA, *s=headB;
-        // if(headA->next==NULL||headB->next==NULL)
-        // {
-        //     return headA;
-        // }
-        int sizea=0,sizeb=0;
-        while(f!=NULL)
+        ListNode * a=headA,*b=headB;
+        while(a!=b)
         {
-            sizea++;
-            f=f->next;
+            if(a==NULL)a=headA;
+            else a=a->next;
+            if(b==NULL)b=headB;
+            else b=b->next;
         }
-        while(s!=NULL)
-        {
-            sizeb++;
-            s=s->next;
-        }
-       // cout<<sizea<<sizeb;
-       f=headA;
-       s=headB;
-       if(sizea>sizeb)
-       {
-           int d = sizea-sizeb;
-           while(d--)
-           {
-               f=f->next;
-           }
-       }
-       if(sizea<sizeb)
-       {
-           int d = sizeb-sizea;
-           while(d--)
-           {
-               s=s->next;
-           }
-       }
-       while(f!=s)
-       {
-          // cout<<f->val<<" "<<s->val<<endl;
-           f=f->next;
-           s=s->next;
-       }
-        return f;
+        return a;
     }
 };
