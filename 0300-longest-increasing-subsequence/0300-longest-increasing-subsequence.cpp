@@ -6,14 +6,12 @@ public:
         dp[n-1]=1;
         for(int i=nums.size()-2;i>=0;i--)
         {
-            int diff=INT_MAX;
             int mx=0;
             for(int j=i;j<n;j++)
             {
                 if(nums[j]>nums[i])
                 {
                     mx=max(mx,dp[j]);
-                    diff=nums[j]-nums[i];
                 }
             }
             dp[i]=1+mx;
