@@ -9,22 +9,14 @@
 class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
-        if(!head)return NULL;
-        ListNode* slow=head,*fast=head;
-        while(fast and fast->next)
+        unordered_set<ListNode*>st;
+        ListNode* temp=head;
+        while(temp)
         {
-            slow=slow->next;
-            fast=fast->next->next;
-            if(slow==fast)break;
+            if(st.find(temp)!=st.end())return temp;
+            else st.insert(temp);
+            temp=temp->next;
         }
-        if(slow!=fast)return NULL;
-        slow=head;
-        while(slow!=fast)
-        {
-            slow=slow->next;
-            fast=fast->next;
-        }
-        if(slow->next==NULL)return NULL;
-        return slow;
+        return NULL;
     }
 };
