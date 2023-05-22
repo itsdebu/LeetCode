@@ -1,20 +1,27 @@
 class Solution {
 public:
-    int minPathSum(vector<vector<int>>& gr) {
-        vector<vector<int>> dp(gr.size(),vector<int>(gr[0].size(),-1));
-        for(int i = gr.size()-1; i>=0;i--){
-            for(int j= gr[0].size()-1;j>=0;j--){
-                if(i==gr.size()-1 && j==gr[0].size()-1) dp[i][j] = gr[i][j];
-                else{
-                    int a= 1e8, b= 1e8;
-                    if(i < gr.size()-1)
-                        a = dp[i+1][j];
-                    if(j < gr[0].size()-1)
-                        b= dp[i][j+1];
-                    dp[i][j]=gr[i][j] + min(a,b);
-                }
-            }
-        }
-        return dp[0][0];
+    int solve(int i,int j,vector<vector<int>>&dp,vector<vector<int>>&grid){    //////// function declaration
+    //base case
+    if(i==0 && j==0)
+    return grid[0][0];
+
+        if(i<0 || j<0)
+            return INT_MAX;
+
+        //check
+        if(dp[i][j]!=-1)
+            return dp[i][j];
+
+        //recurrence relation
+        int up = solve(i-1,j,dp,grid);
+        int left =solve(i,j-1,dp,grid);
+        return dp[i][j]=grid[i][j]+min(up,left);           /////// correct way to return , you need not add grid[i][j] direct;y in solve(i-1, j)/solve(i, j-1) , bcz solve() can return INT_MAX;
+    }
+    int minPathSum(vector<vector<int>>& grid) {
+        int m=grid.size();
+        int n=grid[0].size();
+
+        vector<vector<int>>dp(m,vector<int>(n,-1));
+        return solve(m-1,n-1,dp,grid);
     }
 };
