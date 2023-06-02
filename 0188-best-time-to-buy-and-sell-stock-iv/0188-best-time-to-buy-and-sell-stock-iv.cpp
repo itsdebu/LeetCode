@@ -1,7 +1,7 @@
 class Solution {
 public:
     int dp[1001][2][101];
-    int max_profit(int index,vector<int>nums,int buy,int count)
+    int max_profit(int index,vector<int>&nums,int buy,int count)
     {
         if(count==0)return 0;
         if(index==nums.size())return 0;
