@@ -1,11 +1,15 @@
 class Solution {
 public:
-    int dp[31];
     int fib(int n) {
-        memset(dp,-1,sizeof(dp));
-        if(n<=0)return 0;
-        if(n==1 or n==2)return 1;
-        if(dp[n]!=-1)return dp[n];
-        return dp[n]=fib(n-1)+fib(n-2);
+        if(n==0)return 0;
+        if(n==1)return 1;
+        int prev_one=1,prev_two=0;
+        int ans=0;
+        for(int i=2;i<=n;i++)
+        {
+            ans=prev_one+prev_two;
+            prev_two=prev_one;
+            prev_one=ans;
+        }return prev_one;
     }
 };
