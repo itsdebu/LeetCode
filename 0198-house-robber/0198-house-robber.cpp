@@ -1,16 +1,16 @@
 class Solution {
 public:
-    int max_rob(int n,vector<int>nums,vector<int>&dp)
+    int max_earn(int index,vector<int>&nums,vector<int>&dp)
     {
-        if(n==0)return nums[0];
-        if(n<0)return 0;
-        if(dp[n]!=-1)return dp[n];
-        int one_jump=max_rob(n-1,nums,dp);
-        int two_jump=nums[n]+max_rob(n-2,nums,dp);
-        return dp[n]= max(one_jump,two_jump);
+        if(index>=nums.size())return 0;
+        if(index==nums.size())return nums[index];
+        if(dp[index]!=-1)return dp[index];
+        int not_take=max_earn(index+1,nums,dp);
+        int take=nums[index]+max_earn(index+2,nums,dp);
+        return dp[index]=max(take,not_take);
     }
     int rob(vector<int>& nums) {
-        vector<int>dp(nums.size()+1,-1);
-        return max_rob(nums.size()-1,nums,dp);
+        vector<int>dp(nums.size(),-1);
+        return max_earn(0,nums,dp);
     }
 };
