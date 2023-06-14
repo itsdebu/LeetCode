@@ -1,27 +1,16 @@
 class Solution {
 public:
-    int solve(int i,int j,vector<vector<int>>&dp,vector<vector<int>>&grid){    //////// function declaration
-    //base case
-    if(i==0 && j==0)
-    return grid[0][0];
-
-        if(i<0 || j<0)
-            return INT_MAX;
-
-        //check
-        if(dp[i][j]!=-1)
-            return dp[i][j];
-
-        //recurrence relation
-        int up = solve(i-1,j,dp,grid);
-        int left =solve(i,j-1,dp,grid);
-        return dp[i][j]=grid[i][j]+min(up,left);           /////// correct way to return , you need not add grid[i][j] direct;y in solve(i-1, j)/solve(i, j-1) , bcz solve() can return INT_MAX;
+    int dp[201][201];
+    int min_path(int i,int j,int m, int n,vector<vector<int>>&grid)
+    {
+        if(i<0 or j<0 or i>=m or j>=n)return 1e8;
+        if(i==m-1 and j==n-1)return grid[i][j];
+        if(dp[i][j]!=-1)return dp[i][j];
+        return dp[i][j] = grid[i][j] + min(min_path(i+1,j,m,n,grid),min_path(i,j+1,m,n,grid));
     }
     int minPathSum(vector<vector<int>>& grid) {
-        int m=grid.size();
-        int n=grid[0].size();
-
-        vector<vector<int>>dp(m,vector<int>(n,-1));
-        return solve(m-1,n-1,dp,grid);
+        int m=grid.size(),n=grid[0].size();
+        memset(dp,-1,sizeof(dp));
+        return min_path(0,0,m,n,grid);
     }
 };
