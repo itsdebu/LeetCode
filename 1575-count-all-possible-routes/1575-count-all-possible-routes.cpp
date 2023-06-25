@@ -1,8 +1,8 @@
 class Solution {
 public:
     int mod=1e9+7;
-    
-    int helper(vector<vector<int>>&dp,vector<int>&locations,int current,int &finish,int fuel, int n){
+    int dp[101][201];
+    int helper(vector<int>&locations,int current,int &finish,int fuel, int n){
 
         if(fuel<0)
         return 0;
@@ -17,7 +17,7 @@ public:
 
         for(int next=0;next<n;next++)
             if(next!=current)
-                ans=(ans%mod+helper(dp,locations,next,finish,fuel-abs(locations[current]-locations[next]),n)%mod)%mod;
+                ans=(ans%mod+helper(locations,next,finish,fuel-abs(locations[current]-locations[next]),n)%mod)%mod;
          
 
         return dp[current][fuel]=ans%mod;
@@ -28,8 +28,8 @@ public:
 
         int n=locations.size();
 
-        vector<vector<int>>dp(n,vector<int>(fuel+1,-1));
+        memset(dp,-1,sizeof(dp));
 
-        return helper(dp,locations,start,finish,fuel,n);
+        return helper(locations,start,finish,fuel,n);
     }
 };
