@@ -1,22 +1,28 @@
 class Solution {
 public:
-    long long putMarbles(vector<int>& weights, int k) {
-        priority_queue<int> pqMin;
-        priority_queue<int, vector<int>, greater<int>> pqMax;
-        for(int i = 1; i < weights.size(); ++i){
-            pqMax.push(weights[i] + weights[i-1]);
-            pqMin.push(weights[i] + weights[i-1]);
-            if(pqMax.size() >= k) {
-                // cout<<pqMax.top()<<" "<<pqMin.top()<<endl;
-                pqMax.pop(); pqMin.pop(); 
-            }
+    long long putMarbles(vector<int>& nums, int k) {
+        if(k==1 or k==nums.size())return 0;
+        vector<long long>sum;
+        k--;
+        for(int i=1;i<nums.size();i++)
+        {
+            sum.push_back(nums[i]+nums[i-1]);
         }
-        long long ans = 0;
-        while(pqMax.size() > 0){
-            // cout<<pqMax.top()<<" "<<pqMin.top()<<endl;
-            ans += pqMax.top() - pqMin.top();
-            pqMax.pop(); pqMin.pop();
+        sort(sum.begin(),sum.end());
+        long long st=0,ls=0;
+        int temp=k;
+        for(int i=0;i<sum.size();i++)
+        {
+            if(k==0)break;
+            st+=sum[i];
+            k--;
         }
-        return ans;
+        for(int i=sum.size()-1;i>=0;i--)
+        {
+            if(temp==0)break;
+            ls+=sum[i];
+            temp--;
+        }
+        return ls-st;
     }
 };
