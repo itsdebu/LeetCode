@@ -10,7 +10,6 @@ public:
         int n = intervals.size();
         int ans = 0;
         vector<int> p = intervals[0];
-        
         for(int i=1;i<n;i++)
         {
             if(p[1] > intervals[i][0])
