@@ -16,7 +16,7 @@ public:
         for(int k=0;k<4;k++){
             int rema=a-optionA[k];
             int remb=b-optionB[k];
-            cout<<ans<<endl;
+            // cout<<ans<<endl;
             ans =ans+ 0.25*solve(max(0,rema), max(0,remb), dp);
         }
         
