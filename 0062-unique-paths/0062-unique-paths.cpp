@@ -1,15 +1,18 @@
 class Solution {
 public:
     int dp[101][101];
-    int total_path(int i,int j,int m,int n)
+    int unique_ways(int row,int col,int m,int n)
     {
-        if(i<0 or i>=m or j<0 or j>=n)return 0;
-        if(i==m-1 and j==n-1)return 1;
-        if(dp[i][j]!=-1)return dp[i][j];
-        return dp[i][j]=total_path(i+1,j,m,n)+total_path(i,j+1,m,n);
+        if(row<0 or col<0 or row>=m or col>=n)return 0;
+        if(row==m-1 and col==n-1)return 1;
+        if(dp[row][col]!=-1)return dp[row][col];
+        int right = unique_ways(row,col+1,m,n);
+        int down = unique_ways(row+1,col,m,n);
+
+        return dp[row][col] = right+down;
     }
     int uniquePaths(int m, int n) {
         memset(dp,-1,sizeof(dp));
-        return total_path(0,0,m,n);
+        return unique_ways(0,0,m,n);
     }
 };
