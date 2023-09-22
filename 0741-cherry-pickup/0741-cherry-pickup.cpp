@@ -1,50 +1,35 @@
 class Solution {
 public:
-    int solve(vector<vector<int>>& grid, int r1, int c1, int r2, int c2, int n, int m, vector<vector<vector<vector<int>>>>& dp) {
-        // check if both current positions are within the grid and not on a thorn
-        if (r1 >= 0 && r2 >= 0 && c1 >= 0 && c2 >= 0 && r1 < n && r2 < n && c1 < m && c2 < m && grid[r1][c1] != -1 && grid[r2][c2] != -1) {
-            // check if the result has already been calculated and stored in the dp array
-            if (dp[r1][c1][r2][c2] != -1)
-                return dp[r1][c1][r2][c2];
-                
-            // base case: if either of the current positions is at the destination cell, return the value of that cell
-            if (r1 == n - 1 && c1 == m - 1)
-                return grid[r1][c1];
-            if (r2 == n - 1 && c2 == m - 1)
-                return grid[r2][c2];
-            
-            int cherry = 0;
-            
-            // if the two current positions are the same, add the value of that cell to the cherry count
-            // otherwise, add the values of both cells to the cherry count
-            if (r1 == r2 && c1 == c2)
-                cherry += grid[r1][c1];
-            else
-                cherry += (grid[r1][c1] + grid[r2][c2]);
-            
-            // calculate the maximum number of cherries by moving both positions in each of the four possible directions
-            // and store the result in the dp array
-            int op1 = solve(grid, r1, c1 + 1, r2, c2 + 1, n, m, dp);
-            int op2 = solve(grid, r1 + 1, c1, r2 + 1, c2, n, m, dp);
-            int op3 = solve(grid, r1 + 1, c1, r2, c2 + 1, n, m, dp);
-            int op4 = solve(grid, r1, c1 + 1, r2 + 1, c2, n, m, dp);
-            return dp[r1][c1][r2][c2] = (cherry += max({op1, op2, op3, op4}));
+int dp[51][51][51][51];
+    int max_pick(int row,int col,int row1,int col1,vector<vector<int>>&grid)
+    {
+        int m = grid.size(),n=grid[0].size();
+        if(row>=0 and row<m and col>=0 and col<n and row1>=0 and row1<m and col1>=0 and col1<n and grid[row][col]!=-1 and grid[row1][col1]!=-1){
+
+        if(row1 == grid.size()-1 and col1==grid[0].size()-1)return grid[row1][col1];
+        if(row == grid.size()-1 and col==grid[0].size()-1)return grid[row][col];
+
+        if(dp[row][col][row1][col1]!=-1)return dp[row][col][row1][col1];
+
+        int pick = 0;
+
+        if(row==row1 and col==col1)pick+=grid[row][col];
+        else pick+= (grid[row][col] + grid[row1][col1]);
+
+        int one = pick + max_pick(row,col+1,row1+1,col1,grid);
+        int two = pick + max_pick(row,col+1,row1,col1+1,grid);
+        int three = pick + max_pick(row+1,col,row1+1,col1,grid);
+        int four = pick + max_pick(row+1,col,row1,col1+1,grid);
+
+        return dp[row][col][row1][col1] = max({one,two,three,four});
         }
-        // return minimum integer value if the current positions are not valid
         return INT_MIN;
     }
-
     int cherryPickup(vector<vector<int>>& grid) {
-        // initialize dp array with minimum integer value
-        vector<vector<vector<vector<int>>>> 
-                    dp(grid.size(), vector<vector<vector<int>>>(grid.size(), vector<vector<int>>
-                                (grid.size(), vector<int>(grid.size(), -1))));
-        // solve the problem and store the result
-        int ans = solve(grid, 0, 0, 0, 0, grid.size(), grid[0].size(), dp);
+        memset(dp,-1,sizeof(dp));
+        int ans = max_pick(0,0,0,0,grid);
 
-        if(ans < 0)
-            return 0;
-            
+        if(ans<0)return 0;
         return ans;
     }
 };
