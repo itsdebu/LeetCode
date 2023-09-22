@@ -1,6 +1,6 @@
 class Solution {
 public:
-int dp[51][51][51][51];
+int dp[51][51][51];
     int max_pick(int row,int col,int row1,int col1,vector<vector<int>>&grid)
     {
         int m = grid.size(),n=grid[0].size();
@@ -9,7 +9,7 @@ int dp[51][51][51][51];
         if(row1 == grid.size()-1 and col1==grid[0].size()-1)return grid[row1][col1];
         if(row == grid.size()-1 and col==grid[0].size()-1)return grid[row][col];
 
-        if(dp[row][col][row1][col1]!=-1)return dp[row][col][row1][col1];
+        if(dp[row][row1][col1]!=-1)return dp[row][row1][col1];
 
         int pick = 0;
 
@@ -21,7 +21,7 @@ int dp[51][51][51][51];
         int three = pick + max_pick(row+1,col,row1+1,col1,grid);
         int four = pick + max_pick(row+1,col,row1,col1+1,grid);
 
-        return dp[row][col][row1][col1] = max({one,two,three,four});
+        return dp[row][row1][col1] = max({one,two,three,four});
         }
         return INT_MIN;
     }
