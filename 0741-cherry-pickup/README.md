@@ -1,4 +1,4 @@
-<h2><a href="https://leetcode.com/problems/cherry-pickup/">741. Cherry Pickup</a></h2><h3>Hard</h3><hr><div><p>You are given an <code>n x n</code> <code>grid</code> representing a field of cherries, each cell is one of three possible integers.</p>
+<h2><a href="https://leetcode.com/problems/cherry-pickup/">741. Cherry Pickup</a></h2><h3>Hard</h3><hr><p>You are given an <code>n x n</code> <code>grid</code> representing a field of cherries, each cell is one of three possible integers.</p>
 
 <ul>
 	<li><code>0</code> means the cell is empty, so you can pass through,</li>
@@ -17,8 +17,9 @@
 
 <p>&nbsp;</p>
 <p><strong class="example">Example 1:</strong></p>
-<img alt="" src="https://assets.leetcode.com/uploads/2020/12/14/grid.jpg" style="width: 242px; height: 242px;">
-<pre><strong>Input:</strong> grid = [[0,1,-1],[1,0,-1],[1,1,1]]
+<img alt="" src="https://assets.leetcode.com/uploads/2020/12/14/grid.jpg" style="width: 242px; height: 242px;" />
+<pre>
+<strong>Input:</strong> grid = [[0,1,-1],[1,0,-1],[1,1,1]]
 <strong>Output:</strong> 5
 <strong>Explanation:</strong> The player started at (0, 0) and went down, down, right right to reach (2, 2).
 4 cherries were picked up during this single trip, and the matrix becomes [[0,1,-1],[0,0,-1],[0,0,0]].
@@ -28,7 +29,8 @@ The total number of cherries picked up is 5, and this is the maximum possible.
 
 <p><strong class="example">Example 2:</strong></p>
 
-<pre><strong>Input:</strong> grid = [[1,1,-1],[1,-1,1],[-1,1,1]]
+<pre>
+<strong>Input:</strong> grid = [[1,1,-1],[1,-1,1],[-1,1,1]]
 <strong>Output:</strong> 0
 </pre>
 
@@ -43,4 +45,3 @@ The total number of cherries picked up is 5, and this is the maximum possible.
 	<li><code>grid[0][0] != -1</code></li>
 	<li><code>grid[n - 1][n - 1] != -1</code></li>
 </ul>
-</div>
