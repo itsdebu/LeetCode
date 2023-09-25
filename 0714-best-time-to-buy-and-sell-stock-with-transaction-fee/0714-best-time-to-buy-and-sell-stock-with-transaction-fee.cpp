@@ -1,22 +1,26 @@
 class Solution {
 public:
-    int max_profit(int index,vector<int>&nums,int buy,int fee,vector<vector<int>>&dp)
+    int dp[50001][2];
+    int max_earn(int index,int fee,int buy,vector<int>&nums)
     {
         if(index>=nums.size())return 0;
+
         if(dp[index][buy]!=-1)return dp[index][buy];
-        int profit=INT_MIN;
+
+        int max_profit = INT_MIN;
+
         if(buy)
         {
-            profit=max(-nums[index]+max_profit(index+1,nums,0,fee,dp),max_profit(index+1,nums,1,fee,dp));
+            max_profit = max(-nums[index] + max_earn(index+1,fee,0,nums) , max_earn(index+1,fee,1,nums));
         }
         else
         {
-            profit=max((nums[index]-fee)+max_profit(index+1,nums,1,fee,dp),max_profit(index+1,nums,0,fee,dp));
+            max_profit = max((nums[index] - fee) + max_earn(index+1,fee,1,nums) , max_earn(index+1,fee,0,nums));
         }
-        return dp[index][buy]=profit;
+        return dp[index][buy] = max_profit;
     }
     int maxProfit(vector<int>& prices, int fee) {
-        vector<vector<int>>dp(prices.size(),vector<int>(2,-1));
-        return max_profit(0,prices,1,fee,dp);
+        memset(dp,-1,sizeof(dp));
+        return max_earn(0,fee,1,prices);
     }
 };
