@@ -1,25 +1,23 @@
 class Solution {
 public:
-
-    int solve(vector<int>& nums, int i, int prev,vector<vector<int>>&dp)
+    int dp[2501][2502];
+    int find_longest(int index,int prev,vector<int>&nums)
     {
-        if(i == nums.size()) return 0;
-            
-        if(dp[i][prev+1] != -1) return dp[i][prev+1];
-        
-        int not_take = solve(nums, i+1, prev,dp);
-        
+        if(index==nums.size())return 0;
+
+        if(dp[index][prev+1]!=-1)return dp[index][prev+1];
+
         int take = 0;
-        if(prev == -1 || nums[i]>nums[prev])
-            take = 1 + solve(nums, i+1, i,dp);
-               
-        return dp[i][prev+1] = max(take, not_take);
+        if(prev==-1 || nums[prev]<nums[index])
+        {
+            take = 1 + find_longest(index+1,index,nums);
+        }
+        int not_take  = find_longest(index+1,prev,nums);
+
+        return dp[index][prev+1] = max(take,not_take);
     }
-    
-	int lengthOfLIS(vector<int>& nums) {
-        
-        int n = nums.size();
-		vector<vector<int>> dp(n, vector<int> (n+1, -1));
-        return solve(nums, 0, -1,dp);
+    int lengthOfLIS(vector<int>& nums) {
+        memset(dp,-1,sizeof(dp));
+        return find_longest(0,-1,nums);
     }
 };
