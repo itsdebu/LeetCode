@@ -1,39 +1,42 @@
 class Solution {
 public:
-
-		bool iscycle(int node,vector<int>&vis,vector<int>&path,vector<vector<int>>&graph)
-		{
-				vis[node] = 1;
-				path[node] = 1;
-
-				for(auto it:graph[node])
-				{
-					if(!vis[it])
-					{
-						if(iscycle(it,vis,path,graph))return true;
-					}
-					else if(vis[it] and path[it])
-					{
-						return true;
-					}
-				}
-				path[node] = 0;
-				return false;
-		}
-
     vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
-        vector<int>ans;
-				int n =graph.size();
-				vector<int>vis(n,0);
-				vector<int>path(n,0);
+        int n = graph.size();
+				vector<vector<int>>adj(n);
+
+				vector<int>Indegree(n,0);
 
 				for(int i=0;i<n;i++)
 				{
-						if(!(iscycle(i,vis,path,graph)))
-							{
-								ans.push_back(i);
-							}
+					for(auto it:graph[i])
+					{
+						adj[it].push_back(i);
+					}
 				}
-				return ans;
+				for(int i=0;i<n;i++)
+				{
+					for(auto it:adj[i])
+					{
+						Indegree[it]++;
+					}
+				}
+				queue<int>q;
+				for(int i=0;i<n;i++)
+				{
+					if(Indegree[i]==0)q.push(i);
+				}
+				vector<int>res;
+				while(!q.empty())
+				{
+						int node = q.front();
+						q.pop();
+						res.push_back(node);
+						for(auto it:adj[node])
+						{
+								Indegree[it]--;
+								if(Indegree[it]==0)q.push(it);
+						}
+				}sort(res.begin(),res.end());
+				return res;
     }
 };
