@@ -31,10 +31,9 @@ public:
                 }
                 else if(adjwt+dis==dist[adjnode])
                 {
-                    ways[adjnode] += ways[node];
-                    ways[adjnode] %=mod;
+                    ways[adjnode]=(ways[adjnode]+ways[node])%mod;
                 }
             }
-        }return ways[n-1]; 
+        }return ways[n-1]%mod; 
     }
 };
