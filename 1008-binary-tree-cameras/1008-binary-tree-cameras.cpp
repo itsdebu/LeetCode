@@ -30,8 +30,8 @@ public:
         }
         if(left==0 || right ==0)return 1;
 
-        return -1;
-        
+        else if(left==1 and right==1)return -1;
+        return 0;
     }
     int minCameraCover(TreeNode* root) {
         int camera = 0;
