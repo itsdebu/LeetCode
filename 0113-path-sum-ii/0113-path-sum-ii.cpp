@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-    void get_all_path(TreeNode* root,int target,vector<int>path,vector<vector<int>>&All_path)
+    void get_all_path(TreeNode* root,int target,vector<int>&path,vector<vector<int>>&All_path)
     {
         if(!root)return;
         path.push_back(root->val);
@@ -19,12 +19,11 @@ public:
         {
             // path.push_back(root->val);
             All_path.push_back(path);
-            return;
         }
 
         get_all_path(root->left,target-(root->val),path,All_path);
         get_all_path(root->right,target-(root->val),path,All_path);
-        // path.pop_back();
+        path.pop_back();
     }
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
         vector<vector<int>>All_path;
