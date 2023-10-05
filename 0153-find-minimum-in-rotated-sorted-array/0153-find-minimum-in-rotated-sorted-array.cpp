@@ -1,24 +1,19 @@
-class Solution{
+class Solution {
 public:
-    int findMin(vector<int> &nums){
-        int n = nums.size() ;
-        int res = INT_MAX;
-        int l = 0;
-        int r = n - 1;
-        while (l <= r){
-            if (nums[l] < nums[r]){
-                res = min(res, nums[l]);
-                break;
-            }
-            int mid = l + (r - l) / 2;
-            res = min(res, nums[mid]);
-            if (nums[mid] >= nums[l]){  // mid present in left sorted array
-                l = mid + 1; // try to move closer to right sorted array
-            }
-            else{
-                r = mid - 1;
-            }
+    int findMin(vector<int>& nums) {
+        int n = nums.size();
+        int low=0, high=n-1;
+        
+        while(low<high){
+            if(nums[low] <= nums[high]) return nums[low];
+            int mid = low + (high-low)/2;
+            if(nums[low] > nums[mid]){
+                high=mid;
+            } else if(nums[mid] > nums[high]) {
+                low=mid+1;
+            } 
         }
-        return res;
+        if(nums[low] <= nums[high]) return nums[low];
+        return -1;
     }
 };
