@@ -1,22 +1,43 @@
 class Solution {
 public:
-    vector<int> searchRange(vector<int>& nums, int t) {
-        int c=-1,c1=-1;
-        for(int i=0;i<nums.size();i++)
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int first = -1,last = -1;
+
+        int low = 0,high = nums.size()-1;
+        // searching for first occ
+        while(low<=high)
         {
-            if(t==nums[i])
+            int mid = low + (high-low)/2;
+
+            if(nums[mid]==target)
             {
-                c=i;
-                break;
+                first = mid;
+                high = mid - 1;
             }
+            else if(target>nums[mid])
+            {
+                low = mid+1;
+            }
+            else high = mid-1;
         }
-        for(int i=0;i<nums.size();i++)
+        // searching for last occ
+        low = 0,high = nums.size()-1;
+        while(low<=high)
         {
-            if(t==nums[i])
+            int mid = low + (high-low)/2;
+
+            if(nums[mid]==target)
             {
-                c1=i;
+                last = mid;
+                low = mid + 1;
             }
+            else if(target>nums[mid])
+            {
+                low = mid+1;
+            }
+            else high = mid-1;
         }
-        return {c,c1};
+        if(first == -1 and last == -1)return {-1,-1};
+        else return {first,last};
     }
 };
