@@ -1,36 +1,24 @@
 class Solution {
 public:
-    void find_sum(int index,int k,int target,vector<int>&nums,vector<int>&path,vector<vector<int>>&res)
+    vector<vector<int>>ans;
+    void helper(vector<int>& v,int num,int k,int n)
     {
-        if(target == 0 and k == 0)
+        if(n<0 or v.size()>k)return;
+        if(n==0 and v.size()==k)
         {
-            res.push_back(path);
+            ans.push_back(v);
             return;
         }
-        if(index == nums.size())
+        for(int i=num;i<=9;i++)
         {
-            if(target == 0 and k == 0)
-            {
-                res.push_back(path);
-                return;
-            }
-            else return;
+            v.push_back(i);
+            helper(v,i+1,k,n-i);
+            v.pop_back();
         }
-
-        if(nums[index]<=target)
-        {
-            path.push_back(nums[index]);
-            find_sum(index+1,k-1,target-nums[index],nums,path,res);
-            path.pop_back();
-        }
-        find_sum(index+1,k,target,nums,path,res);
     }
     vector<vector<int>> combinationSum3(int k, int n) {
-        vector<vector<int>>res;
-        vector<int>nums,path;
-        for(int i=1;i<=9;i++)nums.push_back(i);
-        find_sum(0,k,n,nums,path,res);
-        return res;
-
+        vector<int>v;
+        helper(v,1,k,n);
+        return ans;
     }
 };
