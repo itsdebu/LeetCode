@@ -44,10 +44,12 @@ public:
                     histogram[j]+=1;
                 else
                     histogram[j]=0;
+                
+                // cout<<histogram[j]<<" ";
             }
-            
+            // cout<<endl;
             result = max(result, MAH(histogram));
-            cout<<result<<" ";
+            // cout<<result<<" ";
         }
         return result;
     }
