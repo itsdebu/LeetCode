@@ -9,10 +9,10 @@ public:
         for(int i=0;i<nums.size();i++)
         {
             int num = nums[i];
-            if(mp.find(num-1)==mp.end())
+            if(mp[num-1]==0)
             {
                 int count = 1;
-                while(mp.find(num+1)!=mp.end())
+                while(mp[num+1]>0)
                 {
                     count++;
                     num += 1;
