@@ -7,21 +7,24 @@ public:
     }
     
     void push(int val) {
-        // mn = min(mn,val);
+        if(v.size()>0)mn = min(mn,val);
+        else mn = val;
         v.push_back(val);
+        v.push_back(mn);
     }
     
     void pop() {
-        
         v.pop_back();
+        v.pop_back();
+        if(v.size()!=0)mn = v[v.size()-1];
     }
     
     int top() {
-        return v[v.size()-1];
+        return v[v.size()-2];
     }
     
     int getMin() {
-        return *min_element(v.begin(),v.end());
+        return v[v.size()-1];
     }
 };
 
